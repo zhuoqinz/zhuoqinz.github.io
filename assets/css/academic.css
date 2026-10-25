@@ -20,7 +20,7 @@ p:last-child { margin-bottom: 0; }
 .nav-links a:hover { color: var(--link); }
 .page { width: min(1240px, calc(100% - 80px)); margin: 72px auto 40px; display: grid; grid-template-columns: 215px minmax(0, 1fr); gap: 55px; align-items: start; }
 .sidebar { position: sticky; top: 125px; color: var(--ink); font-size: 14px; }
-.avatar { display: block; width: 176px; height: 216px; object-fit: cover; object-position: center; padding: 4px; border: 1px solid #eee; margin-bottom: 15px; }
+.avatar { display: block; width: 176px; height: 216px; object-fit: cover; object-position: center 35%; padding: 4px; border: 1px solid #eee; margin-bottom: 15px; }
 h1 { color: #454b50; font-size: 24px; line-height: 1.25; margin: 0 0 17px; font-weight: 700; }
 .title { margin-bottom: 8px; }
 .entry-term { display: inline-block; margin-top: 5px; color: var(--muted); font-size: 12px; }
