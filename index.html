@@ -8,12 +8,25 @@
   <meta property="og:title" content="Zhuoqing Zhong">
   <meta property="og:description" content="CMU ECE M.S. student since September 2026. Multimodal learning and reliable language models.">
   <meta property="og:type" content="website">
-  <link rel="icon" href="data:,">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/css/academic.css">
 </head>
 <body>
   <a class="skip-link" href="#about">Skip to content</a>
   <svg class="icon-sprite" aria-hidden="true">
+<symbol id="icon-education" viewBox="0 0 24 24">
+      <path d="m2 9 10-5 10 5-10 5L2 9Zm4 2v6c4 3 8 3 12 0v-6M22 9v7"></path>
+    </symbol>
+<symbol id="icon-paper" viewBox="0 0 24 24">
+      <path d="M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8M8 16h6"></path>
+    </symbol>
+<symbol id="icon-eye" viewBox="0 0 24 24">
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"></path><circle cx="12" cy="12" r="3"></circle>
+    </symbol>
+<symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6l8-3Z"></path><path d="m8 12 3 3 5-6"></path>
+    </symbol>
     <symbol id="icon-mail" viewBox="0 0 24 24">
       <path d="M4 6.5h16v11H4z"></path>
       <path d="m4.5 7 7.5 6 7.5-6"></path>
@@ -29,13 +42,12 @@
   </svg>
   <header class="masthead">
     <nav class="nav" aria-label="Primary navigation">
-      <a class="site-title" href="#about">Zhuoqing Zhong</a>
+      <a class="site-title" href="#about">Homepage</a>
       <div class="nav-links">
         <a href="#about">About</a>
         <a href="#education">Education</a>
         <a href="#experience">Experience</a>
         <a href="#publications">Publications</a>
-        <a href="#contact">Contact</a>
       </div>
     </nav>
   </header>
@@ -46,16 +58,10 @@
       <h1>Zhuoqing Zhong</h1>
       <p class="title">Electrical and Computer Engineering<br><span class="entry-term">M.S. student · September 2026–present</span></p>
       <p class="affiliation">Carnegie Mellon University</p>
-      <div class="interest-strip" aria-label="Research interests">
-        <span>MLLM</span>
-        <span>CV</span>
-        <span>RL</span>
-        <span>Reliable LLM</span>
-      </div>
-      <ul class="profile-links">
+<ul class="profile-links">
         <li>
           <a class="icon-link" href="mailto:zhuoqinz@andrew.cmu.edu">
-            <svg><use href="#icon-mail"></use></svg>
+            <svg aria-hidden="true"><use href="#icon-mail"></use></svg>
             <span>Email</span>
           </a>
         </li>
@@ -67,20 +73,19 @@
         </li>
         <li>
           <a class="icon-link" href="https://www.linkedin.com/in/zhuoqing-zhong-909679406">
-            <svg><use href="#icon-linkedin"></use></svg>
+            <svg aria-hidden="true"><use href="#icon-linkedin"></use></svg>
             <span>LinkedIn</span>
           </a>
         </li>
       </ul>
-      <a class="cv-link" href="files/Zhuoqing_Zhong_CV.pdf?v=20261025-kean" target="_blank" rel="noopener">Curriculum vitae <span aria-hidden="true">&nearr;</span></a>
+      <a class="cv-link" href="files/Zhuoqing_Zhong_CV.pdf?v=20261025-kean" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-paper"></use></svg>Curriculum vitae <span aria-hidden="true">&nearr;</span></a>
     </aside>
 
     <article class="content">
       <section id="about" class="section">
-        <h2>About Me</h2>
+        <h2><span class="section-emoji" aria-hidden="true">💬</span>About Me</h2>
         <p>I am a master's student in <strong>Electrical and Computer Engineering</strong>
-          at <strong>Carnegie Mellon University</strong>.
-          Previously, I earned my B.Sc. in Computer Science from <strong>Kean University</strong>.</p>
+          at <strong>Carnegie Mellon University</strong>.</p>
         <p>I am interested in multimodal learning and reliable language models. My research experience
           includes language model interpretability, rejection behavior, and cognitive screening.</p>
         <p class="interests-label">Research interests</p>
@@ -93,7 +98,7 @@
       </section>
 
       <section id="education" class="section">
-        <h2>Education</h2>
+        <h2><span class="section-emoji" aria-hidden="true">🎓</span>Education</h2>
         <div class="education-item">
           <div class="experience-heading"><strong>Carnegie Mellon University</strong><span>Sep 2026 – Present</span></div>
           <p class="role">M.S. in Electrical and Computer Engineering</p>
@@ -105,61 +110,64 @@
       </section>
 
       <section id="experience" class="section">
-        <h2>Experience</h2>
+        <h2><span class="section-emoji" aria-hidden="true">💻</span>Experience</h2>
+        <div class="experience-item">
         <div class="experience-heading"><strong>Institute of Software, Chinese Academy of Sciences</strong><span>Jul – Sep 2024</span></div>
         <p class="role">Research Intern</p>
-        <p>Implemented token-level attribution for language models using LRP and DeepLIFT.</p>
+        </div>
       </section>
 
       <section id="publications" class="section">
-        <h2>Selected Publications</h2>
+        <h2><span class="section-emoji" aria-hidden="true">📝</span>Selected Publications</h2>
 
         <ol class="publication-list">
           <li>
+            <a class="paper-figure" href="https://openaccess.thecvf.com/content/CVPR2026W/CV4CHL/html/Shen_Position_Multimodal_LLMs_Should_Learn_from_Children_CVPRW_2026_paper.html" tabindex="-1"><img src="assets/img/papers/children.png" alt="Developmental learning paradigm for multimodal language models, Figure 1" loading="lazy"></a>
+            <div class="paper-details">
             <a class="paper-title" href="https://openaccess.thecvf.com/content/CVPR2026W/CV4CHL/html/Shen_Position_Multimodal_LLMs_Should_Learn_from_Children_CVPRW_2026_paper.html">Position: Multimodal LLMs Should Learn from Children.</a>
             <br>
             Yifan Shen, Chuanmiao Dong, <strong>Zhuoqing Zhong</strong>, Pei Tian, Tianjiao Yu, Jiateng Liu, Bowen Fang, Xinzhuo Li, Yuanzhe Liu, Zhengyuan Li, Chen Fang, Xu Cao.
             <div class="venue"><em>CVPR Workshops (CV4CHL)</em>, 2026, pp. 5619&ndash;5630.</div>
-            <p class="paper-summary">A position paper on task formation, supervision inference, and continual growth in multimodal models.</p>
-            <a class="paper-resource" href="https://openaccess.thecvf.com/content/CVPR2026W/CV4CHL/papers/Shen_Position_Multimodal_LLMs_Should_Learn_from_Children_CVPRW_2026_paper.pdf">PDF</a> &middot;
+            <a class="paper-resource" href="https://openaccess.thecvf.com/content/CVPR2026W/CV4CHL/papers/Shen_Position_Multimodal_LLMs_Should_Learn_from_Children_CVPRW_2026_paper.pdf">PDF</a>
             <a class="paper-resource" href="https://pediamedai.com/cv4chl/">Workshop</a>
+            </div>
           </li>
           <li>
+            <a class="paper-figure" href="https://link.springer.com/article/10.1007/s44443-025-00334-6" tabindex="-1"><img src="assets/img/papers/rejection.png" alt="Systematic literature review process, Figure 4" loading="lazy"></a>
+            <div class="paper-details">
             <a class="paper-title" href="https://link.springer.com/article/10.1007/s44443-025-00334-6">Improving Negative Rejection Ability in Language Models: A Review of Fine-Tuned LLMs, RAG, and RAFT.</a>
             <br>
             Bowen Li*, <strong>Zhuoqing Zhong*</strong>, Hengyu Zhang, Xubin Sun, Baha Ihnaini.
             <div class="venue"><em>Journal of King Saud University Computer and Information Sciences</em>, 2026.</div>
-            <p class="paper-summary">A review of fine-tuning and retrieval-based approaches to rejection behavior and reliability.</p>
-            <a class="paper-resource" href="https://link.springer.com/content/pdf/10.1007/s44443-025-00334-6.pdf" aria-label="PDF: Improving Negative Rejection Ability in Language Models">PDF</a> &middot;
+            <a class="paper-resource" href="https://link.springer.com/content/pdf/10.1007/s44443-025-00334-6.pdf" aria-label="PDF: Improving Negative Rejection Ability in Language Models">PDF</a>
             <a class="paper-resource" href="https://doi.org/10.1007/s44443-025-00334-6">DOI</a>
+            </div>
           </li>
           <li>
+            <a class="paper-figure" href="https://journalofbigdata.springeropen.com/articles/10.1186/s40537-024-01008-2" tabindex="-1"><img src="assets/img/papers/soccer.png" alt="ROC curves comparing models for match outcomes and over/under 2.5 goals, Figure 11" loading="lazy"></a>
+            <div class="paper-details">
             <a class="paper-title" href="https://journalofbigdata.springeropen.com/articles/10.1186/s40537-024-01008-2">Data-driven prediction of soccer outcomes using enhanced machine and deep learning techniques.</a>
             <br>
             Ebenezer Fiifi Emire Atta Mills*, Zihui Deng*, <strong>Zhuoqing Zhong*</strong>, Jinger Li.
             <div class="venue"><em>Journal of Big Data</em>, 2024.</div>
-            <a class="paper-resource" href="https://link.springer.com/content/pdf/10.1186/s40537-024-01008-2.pdf" aria-label="PDF: Data-driven prediction of soccer outcomes">PDF</a> &middot;
+            <a class="paper-resource" href="https://link.springer.com/content/pdf/10.1186/s40537-024-01008-2.pdf" aria-label="PDF: Data-driven prediction of soccer outcomes">PDF</a>
             <a class="paper-resource" href="https://doi.org/10.1186/s40537-024-01008-2">DOI</a>
+            </div>
           </li>
           <li>
+            <a class="paper-figure" href="https://doi.org/10.1016/j.bspc.2026.111602" tabindex="-1"><img src="assets/img/papers/cognitive.png" alt="Model accuracy across quantization levels, Figure 3" loading="lazy"></a>
+            <div class="paper-details">
             <a class="paper-title" href="https://doi.org/10.1016/j.bspc.2026.111602">Evaluating Mild Cognitive Impairment using large language models: A comparative analysis.</a>
             <br>
-            Baha Ihnaini, Wei Liu, <strong>Zhuoqing Zhong</strong> (co-first author), Zihui Deng, Jiayi Xu, Ruoling Zhao.
+            Baha Ihnaini, Wei Liu, <strong>Zhuoqing Zhong*</strong>, Zihui Deng, Jiayi Xu, Ruoling Zhao.
             <div class="venue"><em>Biomedical Signal Processing and Control</em>, 130, 111602, 2027.</div>
-            <p class="paper-summary">Comparing prompting and model adaptation for speech- and text-based cognitive screening.</p>
             <a class="paper-resource" href="https://doi.org/10.1016/j.bspc.2026.111602">DOI</a>
+            </div>
           </li>
         </ol>
         <p class="contribution-note">* Equal contribution.</p>
       </section>
 
-      <section id="contact" class="section">
-        <h2>Contact</h2>
-        <p>
-          I can be reached by email at <a href="mailto:zhuoqinz@andrew.cmu.edu">zhuoqinz@andrew.cmu.edu</a>.
-          I welcome conversations about research and collaboration.
-        </p>
-      </section>
     </article>
   </main>
 
