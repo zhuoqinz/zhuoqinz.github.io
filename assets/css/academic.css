@@ -15,7 +15,7 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 5px; border-ra
 .nav-links a { color: var(--muted); }
 .page { width: min(1100px, calc(100% - 64px)); margin: 58px auto 32px; display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 72px; align-items: start; }
 .sidebar { position: sticky; top: 108px; color: var(--muted); font-size: 14px; }
-.avatar { width: 164px; height: 164px; object-fit: contain; display: block; margin-bottom: 24px; border-radius: 8px; }
+.avatar { width: 164px; height: 164px; object-fit: cover; object-position: center top; display: block; margin-bottom: 24px; border-radius: 8px; }
 h1 { color: var(--ink); font-size: 26px; line-height: 1.2; margin: 0 0 18px; font-weight: 650; }
 .title { margin-bottom: 10px; }
 .entry-term { color: #8a4148; font-size: 13px; }
