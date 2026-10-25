@@ -74,3 +74,8 @@ em { font-style: normal; }
   .experience-heading { font-size: 15px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Education and concise profile layout. */
+.education-item + .education-item { margin-top: 20px; }
+.interests-label { font-weight: 600; margin-top: 22px; margin-bottom: 8px; }
+.entry-term { color: var(--muted); }
