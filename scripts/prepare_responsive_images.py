@@ -1,4 +1,9 @@
-"""Create lossless WebP display variants; keep original images for zooming."""
+"""Create responsive AVIF/WebP display assets; keep original images for zooming.
+
+Paper AVIFs use quality 90 and full-resolution chroma (4:4:4) to retain small
+colored text and diagram edges. Lossless WebP remains the compatibility fallback.
+Requires Pillow with AVIF support. Original PNGs and the portrait are unchanged.
+"""
 from pathlib import Path
 
 from PIL import Image
@@ -7,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "assets/img/responsive"
 
 
-def variants(source, widths):
+def variants(source, widths, *, avif=False):
     with Image.open(ROOT / source) as original:
         image = original.convert("RGB" if original.mode != "RGBA" else "RGBA")
         for width in sorted(set(min(width, image.width) for width in widths)):
@@ -19,6 +24,13 @@ def variants(source, widths):
             with Image.open(target) as encoded:
                 assert encoded.convert(resized.mode).tobytes() == resized.tobytes()
             print(f"{target.name}: {size}, {target.stat().st_size:,} bytes")
+            if avif:
+                modern = target.with_suffix(".avif")
+                resized.save(modern, "AVIF", quality=90, subsampling="4:4:4",
+                             speed=6, max_threads=2)
+                with Image.open(modern) as encoded:
+                    assert encoded.size == resized.size
+                print(f"{modern.name}: {size}, {modern.stat().st_size:,} bytes")
 
 
 if __name__ == "__main__":
@@ -31,4 +43,4 @@ if __name__ == "__main__":
         # Their original-resolution WebPs are smaller than the 800px variants.
         if name in ("children", "cognitive"):
             widths = tuple(width for width in widths if width != 800)
-        variants(f"assets/img/papers/{name}.png", widths)
+        variants(f"assets/img/papers/{name}.png", widths, avif=True)

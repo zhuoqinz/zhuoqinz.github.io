@@ -43,6 +43,7 @@ body{background:radial-gradient(ellipse at 70% 4%,#f1e4e230,transparent 40%),var
 @keyframes name-unfold{0%{max-width:0;opacity:0}18%{opacity:1}100%{max-width:1em;opacity:1}}
 /* Isolate the original letter-unfold layout work without clipping its ink. */
 .name-heading{contain:layout style}
+.paper-figure picture{display:block;width:100%;min-width:0}
 /* Reserve the original figure dimensions while its full-resolution file loads. */
 .figure-full{width:var(--figure-width,auto);aspect-ratio:var(--figure-ratio,auto)}
 @keyframes initial-ink{0%,20%{color:var(--cmu)}100%{color:#30292c}}
