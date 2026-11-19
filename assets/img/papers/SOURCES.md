@@ -2,6 +2,8 @@
 
 Original figures are extracted from the corresponding author/publication PDFs. Any enhanced rendering is identified below.
 
+- interactive-omni.png: Original overview figure for "Native Real-Time Interactive Omni Intelligence: A Unified Framework", obtained unchanged from the authors' repository: https://raw.githubusercontent.com/ShenYifanS/Awesome-Interactive-Omni/main/assets/overview.png . Paper: https://doi.org/10.20944/preprints202610.1649.v1 . Added November 19, 2026.
+
 - children.png: Figure 1, "Position: Multimodal LLMs Should Learn from Children", CVPR Workshops 2026. https://openaccess.thecvf.com/content/CVPR2026W/CV4CHL/papers/Shen_Position_Multimodal_LLMs_Should_Learn_from_Children_CVPRW_2026_paper.pdf
 - rejection.png: Figure 4 (systematic literature review process), "Improving Negative Rejection Ability in Language Models", published Springer PDF. https://doi.org/10.1007/s44443-025-00334-6
 - soccer.png: Figure 11 (ROC curves), "Data-driven prediction of soccer outcomes using enhanced machine and deep learning techniques", published Springer PDF. https://doi.org/10.1186/s40537-024-01008-2
