@@ -1,43 +1,6 @@
 (() => {
   const name = document.querySelector('.name-heading');
-  if (name) {
-    name.setAttribute('aria-label', 'Zhuoqing Zhong');
-    name.replaceChildren();
-    let index = 0;
-    ['Zhuoqing', 'Zhong'].forEach((word, wordIndex) => {
-      if (wordIndex) {
-        const space = document.createElement('span');
-        space.className = 'name-space';
-        space.setAttribute('aria-hidden', 'true');
-        space.textContent = ' ';
-        name.append(space);
-      }
-      const group = document.createElement('span');
-      group.className = 'name-word';
-      group.setAttribute('aria-hidden', 'true');
-      for (const [letterIndex, character] of [...word].entries()) {
-        const mask = document.createElement('span');
-        mask.className = 'letter-mask' + (letterIndex === 0 ? ' is-initial' : '');
-        if (letterIndex === word.length - 1) mask.classList.add('is-terminal');
-        const glyph = document.createElement('span');
-        glyph.className = 'name-glyph';
-        glyph.style.setProperty('--i', index++);
-        const ink = document.createElement('span');
-        ink.className = 'glyph-ink';
-        ink.textContent = character;
-        glyph.append(ink);
-        mask.append(glyph);
-        group.append(mask);
-      }
-      if (wordIndex) {
-        const dot = document.createElement('span');
-        dot.className = 'name-dot';
-        dot.textContent = '.';
-        group.append(dot);
-      }
-      name.append(group);
-    });
-  }
+  // Letter markup is rendered in HTML so its first animation never waits for JS.
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   // Pair the plain-language ambition with its research areas in both directions.
@@ -153,7 +116,10 @@
         observer.unobserve(change.target);
       }
     }), { threshold: 0.06 });
-    entries.forEach(entry => { entry.classList.add('awaiting-reveal'); observer.observe(entry); });
+    // Late JS must never hide and re-animate content the visitor already sees.
+    // Read positions first; only future, below-viewport entries need a reveal.
+    const upcoming = [...entries].filter(entry => entry.getBoundingClientRect().top >= innerHeight);
+    upcoming.forEach(entry => { entry.classList.add('awaiting-reveal'); observer.observe(entry); });
   }
   const navLinks = [...document.querySelectorAll('.nav-links a[href^="#"]')];
   const sections = navLinks.map(link => document.querySelector(link.hash));
