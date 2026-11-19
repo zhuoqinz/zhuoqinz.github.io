@@ -2,7 +2,8 @@
 
 Paper AVIFs use quality 90 and full-resolution chroma (4:4:4) to retain small
 colored text and diagram edges. Lossless WebP remains the compatibility fallback.
-Requires Pillow with AVIF support. Original PNGs and the portrait are unchanged.
+Portrait AVIFs use quality 95 and 4:4:4 at exactly the existing WebP dimensions.
+Requires Pillow with AVIF support. Original PNGs and lossless WebPs are unchanged.
 """
 from pathlib import Path
 
@@ -10,6 +11,19 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "assets/img/responsive"
+
+
+def portrait_avif():
+    for width in (220, 440, 660, 941):
+        source = (DEST / f"portrait-shirt-{width}.webp" if width != 941
+                  else ROOT / "assets/img/portrait-shirt.webp")
+        with Image.open(source) as original:
+            target = DEST / f"portrait-shirt-{width}.avif"
+            original.save(target, "AVIF", quality=95, subsampling="4:4:4",
+                          speed=6, max_threads=2)
+            with Image.open(target) as encoded:
+                assert encoded.size == original.size
+            print(f"{target.name}: {original.size}, {target.stat().st_size:,} bytes")
 
 
 def variants(source, widths, *, avif=False):
@@ -36,6 +50,7 @@ def variants(source, widths, *, avif=False):
 if __name__ == "__main__":
     DEST.mkdir(parents=True, exist_ok=True)
     variants("assets/img/portrait-shirt.webp", (220, 440, 660))
+    portrait_avif()
     for name in ("interactive-omni", "children", "rejection-enhanced", "soccer", "cognitive"):
         # Cover the ~180-250 CSS-pixel desktop figures at 1x/2x/3x without
         # rounding every retina request up to a much larger 640/960px image.
