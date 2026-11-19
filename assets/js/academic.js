@@ -5,6 +5,7 @@
   const fullImage = dialog.querySelector('.figure-full');
   const caption = dialog.querySelector('figcaption');
   let opener;
+  let imageRequest = 0;
   let pointerStartedOutside = false;
 
   document.querySelectorAll('.paper-figure').forEach(link => {
@@ -16,7 +17,21 @@
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
       event.preventDefault();
       opener = link;
-      fullImage.src = image.src;
+      const request = ++imageRequest;
+      // Show the already-loaded preview immediately, then replace it with the
+      // original resolution. Never enlarge only a responsive thumbnail.
+      fullImage.width = Number(image.getAttribute('width'));
+      fullImage.height = Number(image.getAttribute('height'));
+      fullImage.style.setProperty('--figure-width', `${fullImage.width}px`);
+      fullImage.style.setProperty('--figure-ratio', `${fullImage.width} / ${fullImage.height}`);
+      fullImage.src = image.currentSrc || image.src;
+      const original = new Image();
+      original.decoding = 'async';
+      original.onload = async () => {
+        try { await original.decode(); } catch { /* The loaded image is still usable. */ }
+        if (request === imageRequest && dialog.open) fullImage.src = original.src;
+      };
+      original.src = link.href;
       fullImage.alt = image.alt;
       caption.textContent = link.closest('li').querySelector('.paper-title').textContent +
         (link.dataset.figureNote ? ` ${link.dataset.figureNote}` : '');
@@ -45,6 +60,7 @@
     pointerStartedOutside = false;
   });
   dialog.addEventListener('close', () => {
+    ++imageRequest;
     document.documentElement.classList.remove('figure-open');
     opener?.focus({ preventScroll: true });
   });

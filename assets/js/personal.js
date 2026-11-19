@@ -78,8 +78,11 @@
   const inkLetters = [...document.querySelectorAll('.glyph-ink')];
   let nameFrame = 0;
   let portraitFrame = 0;
+  let namePointer;
+  let portraitPointer;
   function resetName() {
     cancelAnimationFrame(nameFrame);
+    nameFrame = 0;
     inkLetters.forEach(letter => {
       letter.style.removeProperty('--letter-ink');
       letter.style.removeProperty('--letter-lift');
@@ -87,17 +90,22 @@
   }
   function resetPortrait() {
     cancelAnimationFrame(portraitFrame);
+    portraitFrame = 0;
     portrait?.style.removeProperty('--tilt-x');
     portrait?.style.removeProperty('--tilt-y');
   }
   name?.addEventListener('pointermove', event => {
     if (reducedMotion.matches || !finePointer.matches) return;
-    cancelAnimationFrame(nameFrame);
+    namePointer = { x: event.clientX, y: event.clientY };
+    if (nameFrame) return;
     nameFrame = requestAnimationFrame(() => {
-      inkLetters.forEach(letter => {
-        const bounds = letter.getBoundingClientRect();
-        const distance = Math.hypot(event.clientX - bounds.left - bounds.width / 2,
-          (event.clientY - bounds.top - bounds.height / 2) * .65);
+      nameFrame = 0;
+      // Read every box before changing styles: no read/write layout loop per letter.
+      const boxes = inkLetters.map(letter => letter.getBoundingClientRect());
+      inkLetters.forEach((letter, index) => {
+        const bounds = boxes[index];
+        const distance = Math.hypot(namePointer.x - bounds.left - bounds.width / 2,
+          (namePointer.y - bounds.top - bounds.height / 2) * .65);
         const proximity = Math.max(0, 1 - distance / 115);
         const blend = (from, to) => Math.round(from + (to - from) * proximity);
         letter.style.setProperty('--letter-ink', `rgb(${blend(48,196)} ${blend(41,18)} ${blend(44,48)})`);
@@ -108,11 +116,13 @@
   name?.addEventListener('pointerleave', resetName);
   portrait?.addEventListener('pointermove', event => {
     if (reducedMotion.matches || !finePointer.matches) return;
-    cancelAnimationFrame(portraitFrame);
+    portraitPointer = { x: event.clientX, y: event.clientY };
+    if (portraitFrame) return;
     portraitFrame = requestAnimationFrame(() => {
+      portraitFrame = 0;
       const bounds = portrait.parentElement.getBoundingClientRect();
-      const x = Math.max(-.5, Math.min(.5, (event.clientX - bounds.left) / bounds.width - .5));
-      const y = Math.max(-.5, Math.min(.5, (event.clientY - bounds.top) / bounds.height - .5));
+      const x = Math.max(-.5, Math.min(.5, (portraitPointer.x - bounds.left) / bounds.width - .5));
+      const y = Math.max(-.5, Math.min(.5, (portraitPointer.y - bounds.top) / bounds.height - .5));
       portrait.style.setProperty('--tilt-x', `${(-y * 4).toFixed(2)}deg`);
       portrait.style.setProperty('--tilt-y', `${(x * 4).toFixed(2)}deg`);
     });
@@ -125,11 +135,14 @@
     if (reducedMotion.matches) return;
     resetName();
     resetPortrait();
-    const elements = [...document.querySelectorAll('.sidebar, .sidebar *, .intro, .intro *')];
-    const animated = elements.filter(el => getComputedStyle(el).animationName !== 'none');
-    animated.forEach(el => { el.style.animation = 'none'; });
-    void document.body.offsetWidth;
-    animated.forEach(el => { el.style.animation = ''; });
+    // Replay the existing CSS timelines, including pseudo-elements, without a forced reflow.
+    document.querySelectorAll('.sidebar, .intro').forEach(root => {
+      root.getAnimations({ subtree: true }).forEach(animation => {
+        if (!(animation instanceof CSSAnimation)) return;
+        animation.currentTime = 0;
+        animation.play();
+      });
+    });
   });
   if ('IntersectionObserver' in window && !reducedMotion.matches) {
     const entries = document.querySelectorAll('.publication-list > li');
@@ -146,17 +159,25 @@
   const sections = navLinks.map(link => document.querySelector(link.hash));
   const progress = document.querySelector('.reading-progress');
   let scheduled = false;
+  let activeId;
   function update() {
-    const threshold = window.innerHeight * .35;
+    const viewportHeight = window.innerHeight;
+    const scrollTop = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight;
+    const threshold = viewportHeight * .35;
     let active = sections[0];
     sections.forEach(section => { if (section.getBoundingClientRect().top <= threshold) active = section; });
-    if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 3) active = sections[sections.length - 1];
-    navLinks.forEach(link => {
-      if (link.hash === '#' + active.id) link.setAttribute('aria-current', 'location');
-      else link.removeAttribute('aria-current');
-    });
-    const distance = document.documentElement.scrollHeight - window.innerHeight;
-    progress.style.transform = `scaleX(${distance > 0 ? Math.min(1, Math.max(0, window.scrollY / distance)) : 0})`;
+    if (scrollTop + viewportHeight >= documentHeight - 3) active = sections[sections.length - 1];
+    // Complete all geometry reads before writing navigation/progress styles.
+    if (active.id !== activeId) {
+      activeId = active.id;
+      navLinks.forEach(link => {
+        if (link.hash === '#' + activeId) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    const distance = documentHeight - viewportHeight;
+    progress.style.transform = `scaleX(${distance > 0 ? Math.min(1, Math.max(0, scrollTop / distance)) : 0})`;
     scheduled = false;
   }
   function schedule() { if (!scheduled) { scheduled = true; requestAnimationFrame(update); } }
