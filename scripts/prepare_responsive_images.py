@@ -25,4 +25,10 @@ if __name__ == "__main__":
     DEST.mkdir(parents=True, exist_ok=True)
     variants("assets/img/portrait-shirt.webp", (220, 440, 660))
     for name in ("interactive-omni", "children", "rejection-enhanced", "soccer", "cognitive"):
-        variants(f"assets/img/papers/{name}.png", (320, 640, 960, 2000))
+        # Cover the ~180-250 CSS-pixel desktop figures at 1x/2x/3x without
+        # rounding every retina request up to a much larger 640/960px image.
+        widths = (240, 320, 480, 560, 640, 800, 960, 2000)
+        # Their original-resolution WebPs are smaller than the 800px variants.
+        if name in ("children", "cognitive"):
+            widths = tuple(width for width in widths if width != 800)
+        variants(f"assets/img/papers/{name}.png", widths)
