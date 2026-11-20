@@ -16,6 +16,8 @@ body{background:radial-gradient(ellipse at 70% 4%,#f1e4e230,transparent 40%),var
 .name-heading .name-glyph{animation:ink-arrival 1.25s .48s both;transform:none}
 .name-heading .is-initial .name-glyph{animation:initial-ink 1.6s .15s both}
 .name-heading .glyph-ink{display:inline-block;color:var(--letter-ink,inherit);transform:translateY(var(--letter-lift,0px));transition:color .18s ease-out,transform .18s ease-out}
+/* A little optical spacing between the o and q in Zhuoqing. */
+.name-heading .name-word:first-child .letter-mask:nth-child(4) .name-glyph{padding-right:.025em}
 .name-heading .letter-mask.is-terminal{letter-spacing:0;padding-right:.025em}
 .name-heading .name-dot{animation-delay:1.3s;margin-left:.06em;letter-spacing:0;flex-shrink:0}
 .intro-topline{justify-content:flex-end;min-height:30px}
