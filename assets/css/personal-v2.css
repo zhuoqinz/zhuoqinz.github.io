@@ -9,9 +9,9 @@ body{background:radial-gradient(ellipse at 70% 4%,#f1e4e230,transparent 40%),var
 /* The two initials open into the full name; interaction stays with the person. */
 .portrait-arrival{animation:portrait-in 1.25s .2s cubic-bezier(.16,1,.3,1) both;perspective:850px}
 .portrait-frame{animation:none;transform:rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transition:transform .3s ease-out,box-shadow .3s}
-/* Negative tracking can extend a glyph beyond its layout box. Only clip while
-   unfolding; leave the finished letter (and reduced-motion text) unobstructed. */
-.name-heading .letter-mask{padding-top:5px;margin-top:-5px;overflow:visible}
+/* Keep a small ink allowance beyond the layout box throughout the reveal.
+   Negative tracking must not crop rounded strokes or snap them in at the end. */
+.name-heading .letter-mask{padding-top:5px;margin-top:-5px;overflow:visible;clip-path:inset(-.25em -.12em -.25em 0)}
 .name-heading .letter-mask:not(.is-initial){animation:name-unfold 1.15s .45s cubic-bezier(.22,.68,.18,1) both}
 .name-heading .name-glyph{animation:ink-arrival 1.25s .48s both;transform:none}
 .name-heading .is-initial .name-glyph{animation:initial-ink 1.6s .15s both}
@@ -42,7 +42,7 @@ body{background:radial-gradient(ellipse at 70% 4%,#f1e4e230,transparent 40%),var
 .intro .intro-copy{max-width:740px;font-size:16px;line-height:1.8;margin-bottom:13px;animation-delay:.95s}
 .interests{margin-top:23px;padding-top:0;border-top:0;animation-delay:1.15s}
 .intro{padding-bottom:60px}
-@keyframes name-unfold{0%{max-width:0;opacity:0;overflow:hidden}18%{opacity:1}99.999%{overflow:hidden}100%{max-width:1em;opacity:1;overflow:visible}}
+@keyframes name-unfold{0%{max-width:0;opacity:0}18%{opacity:1}100%{max-width:1em;opacity:1}}
 /* Isolate the original letter-unfold layout work without clipping its ink. */
 .name-heading{contain:layout style}
 .paper-figure picture{display:block;width:100%;min-width:0}
